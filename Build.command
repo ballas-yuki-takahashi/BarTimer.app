@@ -17,6 +17,8 @@ printf 'Bar Timer をビルドしています…\n'
 xcrun swiftc -swift-version 5 -O -target "${ARCH}-apple-macosx12.0" -framework AppKit -framework SwiftUI main.swift -o "$APP/Contents/MacOS/BarTimer"
 "$APP/Contents/MacOS/BarTimer" --self-test
 cp Info.plist "$APP/Contents/Info.plist"
+mkdir -p "$APP/Contents/Resources"
+cp AppIcon.icns "$APP/Contents/Resources/AppIcon.icns"
 codesign --force --sign - "$APP"
 # Keep existing installations intact; create this app next to the source.
 if [ -e 'Bar Timer.app' ]; then

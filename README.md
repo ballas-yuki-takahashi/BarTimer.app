@@ -36,6 +36,8 @@ Macのメニューバーに横バーと残り時間を表示するタイマー�
 - main.swift: AppKit / SwiftUI本体と計測モデルのテスト
 - Build.command: Mac上のビルド・テスト・ローカル署名・起動
 - Info.plist: アプリ設定
+- AppIcon.icns: アプリアイコン（kaichu_dokei.png から作成）
+- kaichu_dokei.png: アイコンの元画像
 
 ## 旧版からの更新
 旧アプリをメニューから終了し、今回のZIPを別フォルダに展開してBuild.commandを実行してください。同じフォルダに既存のアプリがあるとビルドは上書きせず停止します。

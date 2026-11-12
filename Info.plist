@@ -6,6 +6,8 @@
 	<string>Bar Timer</string>
 	<key>CFBundleExecutable</key>
 	<string>BarTimer</string>
+	<key>CFBundleIconFile</key>
+	<string>AppIcon</string>
 	<key>CFBundleIdentifier</key>
 	<string>local.bartimer.desktop</string>
 	<key>CFBundleName</key>
