@@ -32,6 +32,9 @@ Macのメニューバーに横バーと残り時間を表示するタイマー�
 ## 「ぽいっと」と連動
 ぽいっと（やることを仕分けて見積もり、計測する Artifact）から、見積もり時間でタイマーを始められます。
 
+- ぽいっと: https://claude.ai/artifact/NHLvusXoYdBanCFVbh2KHt
+- GitHub の親 Issue のサブ Issue を見積もって取り込むときは、Claude Code に「ぽいっとに <Issue の URL> を入れて」（「ToDoに」「やることリストに」でも可）と頼みます。手順は `.claude/skills/poitto-import/SKILL.md`。
+
 1. ぽいっとのタスクの行で Bar Timer アイコンを押す。Bar Timer がそのタスク名と見積もり時間でカウントダウンを始めます。
 2. 作業時間は、一時停止中を除いて数えます。見積もりを超えた分も数えます。
 3. 終わったら、次のどちらかで完了にします。
@@ -55,6 +58,7 @@ Macのメニューバーに横バーと残り時間を表示するタイマー�
 - Info.plist: アプリ設定
 - AppIcon.icns: アプリアイコン（kaichu_dokei.png から作成）
 - kaichu_dokei.png: アイコンの元画像
+- .claude/skills/poitto-import/SKILL.md: GitHub Issue をぽいっとに取り込む Claude Code のスキル
 
 ## 旧版からの更新
 旧アプリをメニューから終了し、今回のZIPを別フォルダに展開してBuild.commandを実行してください。同じフォルダに既存のアプリがあるとビルドは上書きせず停止します。
