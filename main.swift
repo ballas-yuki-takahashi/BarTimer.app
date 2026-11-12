@@ -30,7 +30,7 @@ struct Countdown {
 
 enum TimerMode: String, CaseIterable { case duration, until }
 
-// A task handed over from ぽいぽい見積もり by a bartimer://start link.
+// A task handed over from ぽいっと by a bartimer://start link.
 struct TaskRequest: Equatable {
     let id: String
     let title: String
@@ -68,7 +68,7 @@ private func parseCommandID(_ text: String, host: String) -> String? {
     return id
 }
 
-// The same link copied as text (from ぽいぽい見積もり's ▶ 計る), possibly with words around it.
+// The same link copied as text (from ぽいっと's ▶ 計る), possibly with words around it.
 func parseStartText(_ text: String) -> TaskRequest? {
     guard let range = text.range(of: "bartimer://start?", options: .caseInsensitive) else { return nil }
     let link = text[range.lowerBound...].prefix { !$0.isWhitespace }
@@ -88,7 +88,7 @@ struct WorkLog {
 
 func actualMinutes(_ seconds: TimeInterval) -> Int { max(1, Int((seconds / 60).rounded())) }
 
-// Pasted into the ぽいぽい見積もり page; the page reads the first part, people read the rest.
+// Pasted into the ぽいっと page; the page reads the first part, people read the rest.
 func actualPayload(task: TaskRequest, minutes: Int) -> String {
     "poipoi:actual?task=\(task.id)&min=\(minutes) （\(task.title.isEmpty ? "タスク" : task.title) / 実績\(minutes)分）"
 }
@@ -126,7 +126,7 @@ final class TimerModel: ObservableObject {
         let day = Calendar.current.isDate(target, inSameDayAs: now) ? "今日" : Calendar.current.isDateInTomorrow(target) ? "翌日" : "別日"
         return "\(day) \(formatter.string(from: target)) まで"
     }
-    // Task from ぽいぽい見積もり, if one is being timed.
+    // Task from ぽいっと, if one is being timed.
     @Published var task: TaskRequest?
     @Published var taskFinished = false
     @Published var copied = false
@@ -365,7 +365,7 @@ struct TimerView: View {
                     }.font(.system(size: 12)).foregroundColor(.secondary)
                     if model.taskFinished {
                         HStack(spacing: 8) {
-                            Text(model.copied ? "実績をコピーしました。ぽいぽい見積もりのページで ⌘V を押すと記録されます" : "ページで完了にしました。一時停止を除いた実績で入れ直すときは、コピーしてページで ⌘V")
+                            Text(model.copied ? "実績をコピーしました。ぽいっとのページで ⌘V を押すと記録されます" : "ページで完了にしました。一時停止を除いた実績で入れ直すときは、コピーしてページで ⌘V")
                                 .font(.system(size: 11)).fixedSize(horizontal: false, vertical: true)
                             Spacer(minLength: 0)
                             Button(model.copied ? "もう一度コピー" : "コピー") { model.copyActual() }.controlSize(.small)
@@ -529,7 +529,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
         showCompactPanel()
         if let request = pendingTask { pendingTask = nil; startTask(request) }
     }
-    // bartimer://start links from ぽいぽい見積もり. A link that arrives while
+    // bartimer://start links from ぽいっと. A link that arrives while
     // launching waits until the window exists.
     private var pendingTask: TaskRequest?
     func application(_ application: NSApplication, open urls: [URL]) {
@@ -543,7 +543,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
         updateMenuBar()
         showCompactPanel()
     }
-    // Auto start: when ぽいぽい見積もり's ▶ 計る copies a bartimer://start link in Chrome.
+    // Auto start: when ぽいっと's ▶ 計る copies a bartimer://start link in Chrome.
     // Only a new copy that Chrome marked with its source page is read; other copies
     // (other apps, Bar Timer's own) are never read. The text is dropped unless it is a start link.
     private static let autoKey = "autoStartCopiedTask"
@@ -665,7 +665,7 @@ func selfTest() {
     c.set(today.timeIntervalSince(morning)); c.deadline = today
     c.tick(at: today.addingTimeInterval(15)); precondition(c.remaining == -15)
 
-    // Links from ぽいぽい見積もり
+    // Links from ぽいっと
     let good = parseStartURL(URL(string: "bartimer://start?min=45&task=t1a_b-2&title=%E7%B5%8C%E8%B2%BB%E7%B2%BE%E7%AE%97")!)
     precondition(good == TaskRequest(id: "t1a_b-2", title: "経費精算", minutes: 45))
     precondition(parseStartURL(URL(string: "bartimer://start?min=0&task=t1")!) == nil)
